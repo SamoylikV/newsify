@@ -40,24 +40,24 @@ class mywindow(QtWidgets.QMainWindow):
 			print (tokken)
 		else :
 			if tokken != "PyQt5.QtCore.QUrl('')":
-				inf = 'https://api.vk.com/method/account.getProfileInfo?access_token=' + str(self.acs) + '&v=5.101'
+				inf = 'https://api.vk.com/method/account.getProfileInfo?access_token=/?i=1' + str(self.acs) + '&v=5.101'
 				if tokken != inf:
 					if tokken != self.fnd:
-						if tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php'')":
+						if tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php')":
 							print(self.fnd)
 							if self.fnd == '':
 								print (tokken)
 								res_tmp = tokken.split('#')[-1]
 								self.tmp = res_tmp
 								res_tmp1 = res_tmp.split('&',1)[0]
-								# if res_tmp1 == "PyQt5.QtCore.QUrl('https://m.vk.com/login?act=authcheck":
-								# 	self.hash = self.tmp.split('=')[-1]
-								# 	self.hash = self.hash.split("'")[0]
-								# 	self.hash('hash=', self.hash)
-								# 	print(self.hash)
+								if res_tmp1 == "PyQt5.QtCore.QUrl('https://m.vk.com/login?act=authcheck":
+									self.hash = self.tmp.split('=')[-1]
+									self.hash = self.hash.split("'")[0]
+									self.hash('hash=', self.hash)
+									print(self.hash)
 								print (self.tmp)
 								if res_tmp1 != "PyQt5.QtCore.QUrl('https://m.vk.com/login?act=authcheck":
-									if res_tmp1 != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php/?hash=')":
+									if res_tmp1 != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php/?hash=/?i=1')":
 										if res_tmp1 != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php/?hash=&i=1')":
 											if res_tmp1 !="PyQt5.QtCore.QUrl('https://oauth.vk.com/authorize?client_id=7080257":
 												res_tmp1 = self.tmp.split('&',1)[0]
