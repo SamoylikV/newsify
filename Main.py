@@ -8,7 +8,6 @@ import requests
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtWebEngineWidgets import *
-
 from Newsify import Ui_MainWindow  # импорт нашего сгенерированного файла
 
 
@@ -61,11 +60,6 @@ class mywindow(QtWidgets.QMainWindow):
                                 res_tmp = tokken.split('#')[-1]
                                 self.tmp = res_tmp
                                 res_tmp1 = res_tmp.split('&', 1)[0]
-                                if res_tmp1 == "PyQt5.QtCore.QUrl('https://m.vk.com/login?act=authcheck":
-                                    self.hash = self.tmp.split('=')[-1]
-                                    self.hash = self.hash.split("'")[0]
-                                    self.hash('hash=', self.hash)
-                                    print(self.hash)
                                 print(self.tmp)
                                 if res_tmp1 != "PyQt5.QtCore.QUrl('https://m.vk.com/login?act=authcheck":
                                     if res_tmp1 != "PyQt5.QtCore.QUrl('" + self.l + "')":
@@ -79,12 +73,8 @@ class mywindow(QtWidgets.QMainWindow):
                                                     self.ui.find.setEnabled(True)
                                                     self.ui.raion.setReadOnly(False)
                                                     print('self.acs=', self.acs)
-                                                    if self.hash == '':
-                                                        self.l = 'http://www.fort-dev.ml/newsify/wait2.php'
-                                                        self.my_web.load(QUrl(self.l))
-                                                    else:
-                                                        self.l = 'http://www.fort-dev.ml/newsify/wait.php&hash=' + self.hash
-                                                        self.my_web.load(QUrl(self.l))
+                                                    self.l = 'http://www.fort-dev.ml/newsify/wait.php'
+                                                    self.my_web.load(QUrl(self.l))
 
     def filters(self):
         print(self.combo.currentText())
@@ -168,6 +158,7 @@ class mywindow(QtWidgets.QMainWindow):
 
                 print(lnk)
         self.ui.list.addItems(self.text_x)
+        self.my_web.load(QUrl("http://www.fort-dev.ml/newsify/wait2.php"))
 app = QtWidgets.QApplication([])
 application = mywindow()
 application.show()
