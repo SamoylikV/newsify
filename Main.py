@@ -49,7 +49,11 @@ class mywindow(QtWidgets.QMainWindow):
         if tokken == "PyQt5.QtCore.QUrl('about:blank')":
             print(tokken)
         else:
-            if tokken != "PyQt5.QtCore.QUrl('')":
+            if tokken == "PyQt5.QtCore.QUrl('https://oauth.vk.com/blank.html#error=access_denied&error_reason=user_denied&error_description=User denied your request')":
+                self.my_web.load(QUrl("https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.101&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token"))
+            elif tokken == "PyQt5.QtCore.QUrl('https://oauth.vk.com/')":
+                self.my_web.load(QUrl("https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.101&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token"))
+            elif tokken != "PyQt5.QtCore.QUrl('')":
                 inf = 'https://api.vk.com/method/account.getProfileInfo?access_token=/?i=1' + str(self.acs) + '&v=5.101'
                 if tokken != inf:
                     if tokken != self.fnd:
@@ -65,16 +69,17 @@ class mywindow(QtWidgets.QMainWindow):
                                     if res_tmp1 != "PyQt5.QtCore.QUrl('" + self.l + "')":
                                         if res_tmp1 != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php?i=1')":
                                             if res_tmp1 != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php?i=2')":
-                                                if res_tmp1 != "PyQt5.QtCore.QUrl('https://oauth.vk.com/authorize?client_id=7080257":
-                                                    res_tmp1 = self.tmp.split('&', 1)[0]
-                                                    res_tmp = res_tmp1.split('=')[-1]
-                                                    self.acs = res_tmp
+	                                            if res_tmp1 != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait2.php')":
+		                                            if res_tmp1 != "PyQt5.QtCore.QUrl('https://oauth.vk.com/authorize?client_id=7080257":
+		                                                res_tmp1 = self.tmp.split('&', 1)[0]
+		                                                res_tmp = res_tmp1.split('=')[-1]
+		                                                self.acs = res_tmp
 
-                                                    self.ui.find.setEnabled(True)
-                                                    self.ui.raion.setReadOnly(False)
-                                                    print('self.acs=', self.acs)
-                                                    self.l = 'http://www.fort-dev.ml/newsify/wait.php'
-                                                    self.my_web.load(QUrl(self.l))
+		                                                self.ui.find.setEnabled(True)
+		                                                self.ui.raion.setReadOnly(False)
+		                                                print('self.acs=', self.acs)
+		                                                self.l = 'http://www.fort-dev.ml/newsify/wait.php'
+		                                                self.my_web.load(QUrl(self.l))
 
     def filters(self):
         print(self.combo.currentText())
@@ -125,9 +130,9 @@ class mywindow(QtWidgets.QMainWindow):
                     owner_id = dict[i].get('owner_id')
                     self.text_x[i] = str(dict[i].get('text'))[0:100] + '...'
                     if owner_id == abs(owner_id):
-                        lnk = 'https://vk.com/id' + str(owner_id) + '?w=wall' + str(owner_id) + '_' + str(id_x)
+                        lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)
                     else:
-                        lnk = 'https://vk.com/public' + str(abs(owner_id)) + '?w=wall' + str(owner_id) + '_' + str(id_x)
+                        lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)
                     self.link[i] = lnk
                     i = i + 1
                     print(lnk)
@@ -150,9 +155,9 @@ class mywindow(QtWidgets.QMainWindow):
                 owner_id = dict[i].get('owner_id')
                 self.text_x[i] = str(dict[i].get('text'))[0:100] + '...'
                 if owner_id == abs(owner_id):
-                    lnk = 'https://vk.com/id' + str(owner_id) + '?w=wall' + str(owner_id) + '_' + str(id_x)
+                    lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)
                 else:
-                    lnk = 'https://vk.com/public' + str(abs(owner_id)) + '?w=wall' + str(owner_id) + '_' + str(id_x)
+                    lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)
                 self.link[i] = lnk
                 i = i + 1
 
