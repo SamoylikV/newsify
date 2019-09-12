@@ -25,18 +25,21 @@ class mywindow(QtWidgets.QMainWindow):
 		self.ui.filter.setStyleSheet('''border-radius: 8px;background-color: rgb(240,240,240);''')#изменение скругленности и цвета фона комбо-бокса
 		self.ui.find.setEnabled(False)#блокировка кнопки поиск
 		self.ui.find.clicked.connect(self.find)
+		self.ui.else_1.clicked.connect(self.find1)
 		self.combo = self.ui.filter#подключение комбо-бокса
 		self.combo.activated[str].connect(self.filters)
 		self.acs = ''#инициализация переменной токена
 		self.ui.list.itemDoubleClicked.connect(self.listing)
 		self.kat = ''#инициализация переменной категории
+		self.next = ''
+		self.next_1 = 0
 		self.fnd = ''#инициализация переменной поискового запросы
 		self.link = ['','','','','','','','','','','','','','','','','','','','']#инициализация массива ссылок
 		self.text_x = ['','','','','','','','','','','','','','','','','','','','']#инициализация массива текста постов
 		self.my_web.load(QUrl("https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.101&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token"))#открытие страницы авторизации и запроса прав
 		self.town = ''#инициализация переменной города
 		self.ui.brs.urlChanged.connect(self.token)
-
+		self.ui.else_1.setEnabled(False)
 	def token(self):
 		tokken = str(self.my_web.url())#получение данных из адресной строки
 		if tokken == "PyQt5.QtCore.QUrl('about:blank')":
@@ -95,7 +98,41 @@ class mywindow(QtWidgets.QMainWindow):
 
 	def listing(self):
 		self.my_web.load(QUrl(self.link[self.ui.list.currentRow()]))#при двойном клике списка элемент открывает ссылку на этот пост
+	def find1(self):
+		self.town = self.ui.raion.text()  # запись данных в переменную из поля ввода
+		self.ui.list.clear()  # очистка списка
+		self.my_web.load(QUrl("http://www.fort-dev.ml/newsify/wait2.php"))  # отображение страницы "Выберите новость"
+		if self.town == '':
+			self.ui.errors.setText("Введите название населенного пункта")  # Вывод текста в поле ошибок
 
+		else:
+			self.next_1 = int(self.next.split('/')[0]) + int(self.next_1)
+			self.ui.errors.setText("")  # очистка поля ошибок
+			self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=20&start_from='+ str(self.next_1) +'&access_token=' + self.acs + '&v=5.101'  # создание ссылки поиска новостей
+			req = requests.get(self.fnd)  # получение json кода
+			req = req.text
+			print(self.fnd)
+			req = json.loads(req)
+			req = req.get('response')
+			count = req.get('count')  # извлечение количества новостей
+			req = req.get('items')  # извлечение новостей
+			i = 0
+			print(count)
+
+			if count == 1000:
+				e = 20  # если новостей больше чем запрашивалось то задаем число которое запросили
+			else:
+				e = count - 1  # если новостей меньше чем запрашивалось то задаем число новостей которое пришло
+			while i < e:
+				id_x = req[i].get('id')
+				owner_id = req[i].get('owner_id')
+				self.text_x[i] = str(req[i].get('text'))[0:100] + '...'
+				lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)  # создаем ссылки на посты
+				self.link[i] = lnk  # запись ссылок в массив
+				i = i + 1
+
+				print(lnk)
+		self.ui.list.addItems(self.text_x)  # добавление ссылок из масива в список
 	def find(self):
 		self.town = self.ui.raion.text()#запись данных в переменную из поля ввода
 		self.ui.list.clear()#очистка списка
@@ -112,6 +149,7 @@ class mywindow(QtWidgets.QMainWindow):
 			req = json.loads(req)
 			req = req.get('response')
 			count = req.get('count')#извлечение количества новостей
+			self.next = req.get('next_from')
 			req = req.get('items')#извлечение новостей
 			i=0
 			print(count)
@@ -130,6 +168,7 @@ class mywindow(QtWidgets.QMainWindow):
 
 				print(lnk)
 		self.ui.list.addItems(self.text_x)#добавление ссылок из масива в список
+		self.ui.else_1.setEnabled(True)
 app = QtWidgets.QApplication([])#открытие интерфейса
 application = mywindow()#открытие интерфейса
 application.show()#отображение интерфейса
