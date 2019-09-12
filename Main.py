@@ -31,6 +31,7 @@ class mywindow(QtWidgets.QMainWindow):
 		self.acs = ''#инициализация переменной токена
 		self.ui.list.itemDoubleClicked.connect(self.listing)
 		self.kat = ''#инициализация переменной категории
+		self.kat1 = ''#инициализация переменной категории
 		self.next = ''
 		self.next_1 = 0
 		self.fnd = ''#инициализация переменной поискового запросы
@@ -112,20 +113,23 @@ class mywindow(QtWidgets.QMainWindow):
 				self.ui.errors.setText("Введите название населенного пункта")#Вывод текста в поле ошибок
 
 		else:
-			if self.fnd =='':
+			if self.kat!=self.kat1:
 				self.ui.errors.setText("")#очистка поля ошибок
+				self.kat1 = self.kat
 				self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town +' '+ self.kat + ' новости&count=20&access_token=' + self.acs + '&v=5.101'#создание ссылки поиска новостей
+				print(self.fnd)
+			else:
+				self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=20&start_from=' + str(self.next_1) + '&access_token=' + self.acs + '&v=5.101'#создание ссылки поиска новостей
 			req = requests.get(self.fnd)#получение json кода
 			req = req.text
-			print(self.fnd)
 			req = json.loads(req)
 			req = req.get('response')
 			count = req.get('count')#извлечение количества новостей
 			self.next = req.get('next_from')
-			req = req.get('items')#извлечение новостей
+			req = req.get('items')
+			print(req)#извлечение новостей
 			i=0
 			print(count)
-
 			if count == 1000:
 				e = 20#если новостей больше чем запрашивалось то задаем число которое запросили
 			else:
