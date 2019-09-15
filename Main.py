@@ -43,6 +43,7 @@ class mywindow(QtWidgets.QMainWindow):
 		self.ui.else_1.setEnabled(False)
 	def token(self):
 		tokken = str(self.my_web.url())#получение данных из адресной строки
+		print(tokken)
 		if tokken == "PyQt5.QtCore.QUrl('about:blank')":
 			print(tokken)
 		else:
@@ -103,11 +104,10 @@ class mywindow(QtWidgets.QMainWindow):
 		self.next_1 = int(self.next.split('/')[0]) + int(self.next_1)
 		self.ui.errors.setText("")  # очистка поля ошибок
 		self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=20&start_from=' + str(self.next_1) + '&access_token=' + self.acs + '&v=5.101'  # создание ссылки поиска новостей
-		self.find()
+		self.Site()
 
 	def find(self):
 		self.town = self.ui.raion.text()#запись данных в переменную из поля ввода
-		self.ui.list.clear()#очистка списка
 		self.my_web.load(QUrl("http://www.fort-dev.ml/newsify/wait2.php"))#отображение страницы "Выберите новость"
 		if self.town == '':
 				self.ui.errors.setText("Введите название населенного пункта")#Вывод текста в поле ошибок
@@ -120,31 +120,35 @@ class mywindow(QtWidgets.QMainWindow):
 				print(self.fnd)
 			else:
 				self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=20&start_from=' + str(self.next_1) + '&access_token=' + self.acs + '&v=5.101'#создание ссылки поиска новостей
-			req = requests.get(self.fnd)#получение json кода
-			req = req.text
-			req = json.loads(req)
-			req = req.get('response')
-			count = req.get('count')#извлечение количества новостей
-			self.next = req.get('next_from')
-			req = req.get('items')
-			print(req)#извлечение новостей
-			i=0
-			print(count)
-			if count == 1000:
-				e = 20#если новостей больше чем запрашивалось то задаем число которое запросили
-			else:
-				e = count -1#если новостей меньше чем запрашивалось то задаем число новостей которое пришло
-			while i < e:
-				id_x = req[i].get('id')
-				owner_id = req[i].get('owner_id')
-				self.text_x[i] = str(req[i].get('text'))[0:100] + '...'
-				lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)#создаем ссылки на посты 
-				self.link[i] = lnk#запись ссылок в массив
-				i = i + 1
-
-				print(lnk)
+		self.Site()
+	def Site(self):
+		self.ui.list.clear()#очистка списка
+		self.my_web.load(QUrl("http://www.fort-dev.ml/newsify/wait2.php"))#отображение страницы "Выберите новость"
+		req = requests.get(self.fnd)#получение json кода
+		req = req.text
+		req = json.loads(req)
+		req = req.get('response')
+		count = req.get('count')#извлечение количества новостей
+		self.next = req.get('next_from')
+		req = req.get('items')
+		print(req)#извлечение новостей
+		i=0
+		print(count)
+		if count == 1000:
+			e = 20#если новостей больше чем запрашивалось то задаем число которое запросили
+			self.ui.else_1.setEnabled(True)
+		else:
+			e = count -1#если новостей меньше чем запрашивалось то задаем число новостей которое пришло
+			self.ui.else_1.setEnabled(False)
+		while i < e:
+			id_x = req[i].get('id')
+			owner_id = req[i].get('owner_id')
+			self.text_x[i] = str(req[i].get('text'))[0:100] + '...'
+			lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)#создаем ссылки на посты
+			self.link[i] = lnk#запись ссылок в массив
+			i = i + 1
+			print(lnk)
 		self.ui.list.addItems(self.text_x)#добавление ссылок из масива в список
-		self.ui.else_1.setEnabled(True)
 app = QtWidgets.QApplication([])#открытие интерфейса
 application = mywindow()#открытие интерфейса
 application.show()#отображение интерфейса
