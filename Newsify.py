@@ -30,6 +30,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.raion = QtWidgets.QLineEdit(self.widget)
         self.raion.setObjectName("raion")
+        self.raion.setMinimumSize(QtCore.QSize(0, 25))
         self.horizontalLayout.addWidget(self.raion)
         self.find = QtWidgets.QPushButton(self.widget)
         self.find.setObjectName("find")
