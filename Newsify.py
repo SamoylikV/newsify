@@ -84,6 +84,21 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
+		
+        self.errors.setStyleSheet("color: rgb(255, 0, 0);")  # изменение цвета текста поля ошибок
+        self.centralwidget.setStyleSheet("background-color: rgb(255,255,255);")  # изменение цвета фона главного окна
+        self.raion.setReadOnly(True)  # блокировка поля ввода
+        self.raion.setStyleSheet(
+            '''border-radius: 8px;background-color: rgb(200,200,200);''')  # изменение скругленности и цвета фона поля ввода
+        self.list.setStyleSheet(
+            '''border-radius: 10px;background-color: rgb(200,200,200); color:rgb(26,26,26);''')  # изменение скругленности, цвета текста и цвета фона списка
+        self.find.setStyleSheet(
+            '''border-radius: 8px;background-color: rgb(200,200,200);''')  # изменение скругленности и цвета фона кнопки поиск
+        self.else_1.setStyleSheet(
+            '''border-radius: 8px;background-color: rgb(200,200,200);''')  # изменение скругленности и цвета фона кнопки поиск
+        self.filter.setStyleSheet(
+            '''border-radius: 8px;background-color: rgb(240,240,240);''')  # изменение скругленности и цвета фона комбо-бокса
+        self.find.setEnabled(False)  # блокировка кнопки поиск
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)

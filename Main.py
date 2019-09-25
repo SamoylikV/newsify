@@ -15,20 +15,6 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)  # Подключение графики
         self.my_web = self.ui.brs  # Подключение браузера
-        self.ui.errors.setStyleSheet("color: rgb(255, 0, 0);")  # изменение цвета текста поля ошибок
-        self.ui.centralwidget.setStyleSheet("background-color: rgb(255,255,255);")  # изменение цвета фона главного окна
-        self.ui.raion.setReadOnly(True)  # блокировка поля ввода
-        self.ui.raion.setStyleSheet(
-            '''border-radius: 8px;background-color: rgb(200,200,200);''')  # изменение скругленности и цвета фона поля ввода
-        self.ui.list.setStyleSheet(
-            '''border-radius: 10px;background-color: rgb(200,200,200); color:rgb(26,26,26);''')  # изменение скругленности, цвета текста и цвета фона списка
-        self.ui.find.setStyleSheet(
-            '''border-radius: 8px;background-color: rgb(200,200,200);''')  # изменение скругленности и цвета фона кнопки поиск
-        self.ui.else_1.setStyleSheet(
-            '''border-radius: 8px;background-color: rgb(200,200,200);''')  # изменение скругленности и цвета фона кнопки поиск
-        self.ui.filter.setStyleSheet(
-            '''border-radius: 8px;background-color: rgb(240,240,240);''')  # изменение скругленности и цвета фона комбо-бокса
-        self.ui.find.setEnabled(False)  # блокировка кнопки поиск
         self.ui.find.clicked.connect(self.find)
         self.ui.else_1.clicked.connect(self.find1)
         self.combo = self.ui.filter  # подключение комбо-бокса
