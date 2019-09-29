@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import sys
-
+import kod
 import requests
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import *
@@ -24,6 +24,7 @@ class mywindow(QtWidgets.QMainWindow):
 		self.kat = ''  # инициализация переменной категории
 		self.kat1 = ''  # инициализация переменной категории
 		self.next = ''
+		self.old = ''
 		self.next_1 = 0
 		self.fnd = ''  # инициализация переменной поискового запросы
 		self.link = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
@@ -59,13 +60,7 @@ class mywindow(QtWidgets.QMainWindow):
 								tokken = tokken.split('#')[-1]  # обработка строки для получения токена
 								tokken = tokken.split('&', 1)[0]
 								print(tokken)
-								if tokken != "PyQt5.QtCore.QUrl('https://m.vk.com/login?act=authcheck":
-									if tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php')":
-										if tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php?i=1')":
-											if tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php?i=2')":
-												if tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait2.php')":
-													if tokken != "PyQt5.QtCore.QUrl('https://oauth.vk.com/authorize?client_id=7080257":
-														if tokken != "PyQt5.QtCore.QUrl('https://oauth.vk.com/oauth/authorize?client_id=7080257":
+								if tokken != "PyQt5.QtCore.QUrl('https://m.vk.com/login?act=authcheck" and tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php')" and tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php?i=1')" and tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait.php?i=2')" and tokken != "PyQt5.QtCore.QUrl('http://www.fort-dev.ml/newsify/wait2.php')" and tokken != "PyQt5.QtCore.QUrl('https://oauth.vk.com/authorize?client_id=7080257" and tokken != "PyQt5.QtCore.QUrl('https://oauth.vk.com/oauth/authorize?client_id=7080257":
 															self.acs = tokken.split('=')[-1]  # обработка строки и запись токена в переменную
 
 															self.ui.find.setEnabled(True)  # разблокировка кнопки
@@ -111,7 +106,7 @@ class mywindow(QtWidgets.QMainWindow):
 	def find1(self):
 		self.next_1 = int(self.next.split('/')[0]) + int(self.next_1)
 		self.ui.errors.setText("")  # очистка поля ошибок
-		self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=40&start_from=' + str(
+		self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=200&start_from=' + str(
 			self.next_1) + '&access_token=' + self.acs + '&v=5.101'  # создание ссылки поиска новостей
 		self.Site()
 
@@ -125,10 +120,10 @@ class mywindow(QtWidgets.QMainWindow):
 			if self.kat != self.kat1:
 				self.ui.errors.setText("")  # очистка поля ошибок
 				self.kat1 = self.kat
-				self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=40&access_token=' + self.acs + '&v=5.101'  # создание ссылки поиска новостей
+				self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=200&access_token=' + self.acs + '&v=5.101'  # создание ссылки поиска новостей
 				print(self.fnd)
 			else:
-				self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=40&start_from=' + str(
+				self.fnd = 'https://api.vk.com/method/newsfeed.search?q=' + self.town + ' ' + self.kat + ' новости&count=200&start_from=' + str(
 					self.next_1) + '&access_token=' + self.acs + '&v=5.101'  # создание ссылки поиска новостей
 		self.Site()
 
@@ -145,7 +140,7 @@ class mywindow(QtWidgets.QMainWindow):
 		i = 0
 		print(count)
 		if count == 1000:
-			e = 20  # если новостей больше чем запрашивалось то задаем число которое запросили
+			e = 15  # если новостей больше чем запрашивалось то задаем число которое запросили
 			self.ui.else_1.setEnabled(True)
 		else:
 			e = count - 1  # если новостей меньше чем запрашивалось то задаем число новостей которое пришло
@@ -154,19 +149,17 @@ class mywindow(QtWidgets.QMainWindow):
 			id_x = self.req[i].get('id')
 			owner_id = self.req[i].get('owner_id')
 			self.text_x[i] = str(self.req[i].get('text'))[0:100] + '...'
-			
+			if self.old == self.text_x[i]:
+				self.text_x[i]=str(self.req[i+15].get('text'))[0:100] + '...'
+				print(self.text_x[i])
+			while self.text_x[i].split(',',1)[0]=='Уважаемая администрация':
+				self.text_x[i]=str(self.req[i+15].get('text'))[0:100] + '...'
+				print(self.text_x[i])
+			else:
+				print(self.text_x[i].split(',',1)[0]=='Уважаемая администрация')
+				self.old = self.text_x[i]
 			if self.age < 18:
-				if self.text_x[i].find("sex") == -1:
-					if self.text_x[i].find("porno") == -1:
-						if self.text_x[i].find("секс") == -1:
-							if self.text_x[i].find("порно") == -1:
-								if self.text_x[i].find("голая") == -1:
-									if self.text_x[i].find("вагина") == -1:
-										if self.text_x[i].find("манда") == -1:
-											if self.text_x[i].find("пизда") == -1:
-												if self.text_x[i].find("сиськи") == -1:
-													if self.text_x[i].find("мастурб") == -1:
-														if self.text_x[i].find("дроч") == -1:
+				if self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0201020101')) == -1 and self.text_x[i].find(kod.DeKod('0502010201')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1 and self.text_x[i].find(kod.DeKod('0101020101')) == -1: 
 															lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)  # создаем ссылки на посты
 															self.link[i] = lnk  # запись ссылок в массив
 															i = i + 1
@@ -177,20 +170,11 @@ class mywindow(QtWidgets.QMainWindow):
 				lnk = 'https://m.vk.com/wall' + str(owner_id) + '_' + str(id_x)  # создаем ссылки на посты
 				self.link[i] = lnk  # запись ссылок в массив
 				i = i + 1
+
 			print(lnk)
 		i=0
 		self.ui.list.addItems(self.text_x)  # добавление ссылок из масива в список
-"""		while i < e:	
-			if e-i!=1:
-				if self.text_x[i] == self.text_x[i+1]:
-					id_x = self.req[i+20].get('id')
-					owner_id = self.req[i+20].get('owner_id')
-					self.text_x[i] = str(self.req[i+20].get('text'))[0:100] + '...'
-			else:
-				if self.text_x[i] == self.text_x[0]:
-					id_x = self.req[i+20].get('id')
-					owner_id = self.req[i+20].get('owner_id')
-					self.text_x[i] = str(self.req[i+20].get('text'))[0:100] + '...'"""
+
 
 
 
