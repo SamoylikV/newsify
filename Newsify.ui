@@ -29,42 +29,50 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>1</x>
-      <y>1</y>
+      <x>3</x>
+      <y>2</y>
       <width>1231</width>
       <height>721</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLineEdit" name="raion"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="find">
-           <property name="text">
-            <string>Поиск</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QComboBox" name="countri"/>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QComboBox" name="comboBox"/>
-         </item>
-         <item>
-          <widget class="QLabel" name="errors">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QComboBox" name="region"/>
+       </item>
+       <item>
+        <widget class="QComboBox" name="citi"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="find">
+         <property name="maximumSize">
+          <size>
+           <width>80</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Поиск</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QComboBox" name="filter"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="errors">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -76,7 +84,7 @@
           <widget class="QListWidget" name="list"/>
          </item>
          <item>
-          <widget class="QPushButton" name="else_2">
+          <widget class="QPushButton" name="else_1">
            <property name="text">
             <string>Показать еще</string>
            </property>
