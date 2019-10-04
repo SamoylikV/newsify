@@ -24,7 +24,11 @@ def DeKod(kod):
 
 		elif kod[1] == '8':
 			a='п'
-
+		elif kod[1] == '9':
+			a='С'#рус
+	if kod[0] == '1':
+		if kod[1] == '0':
+			a='с'#рус
 			print(kod)
 		if kod[2] == '0':
 			if kod[3] == '1':
