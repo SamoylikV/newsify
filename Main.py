@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
 import sys
-import kod
 import requests
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import *
