@@ -29,8 +29,8 @@ class mywindow(QtWidgets.QMainWindow):
 		self.region_text = ['']*600
 		self.region_id = ['']*600
 		self.city_text = ['']*2000
-		self.countri_text = ['']*234
-		self.countri_id = ['']*234
+		self.countri_text = ['']*240
+		self.countri_id = ['']*240
 		self.next_1 = 0
 		self.fnd = ''  # инициализация переменной поискового запросы
 		self.link = ['']*16  # инициализация массива ссылок
@@ -38,14 +38,15 @@ class mywindow(QtWidgets.QMainWindow):
 		self.town = ''  # инициализация переменной города
 		self.ui.brs.urlChanged.connect(self.token)
 		self.ui.else_1.setEnabled(False)
-
+		print("---------------")
 	def token(self):
 		tokken = str(self.my_web.url())  # получение данных из адресной строки
-		#tokken)
+		print(tokken)
 		if tokken.split("#")[0] == "PyQt5.QtCore.QUrl('https://oauth.vk.com/blank.html":
 			tokken = tokken.split('#')[-1]  # обработка строки для получения токена
 			tokken = tokken.split('&', 1)[0]
 			self.acs = tokken.split('=')[-1]  # обработка строки и запись токена в переменную
+			print("________")
 			self.town = 'https://api.vk.com/method/account.getProfileInfo?access_token=' + self.acs + '&v=5.101'  # запрос информации о пользователе
 
 			print(self.town)
@@ -108,6 +109,8 @@ class mywindow(QtWidgets.QMainWindow):
 		elif tokken == "PyQt5.QtCore.QUrl('https://oauth.vk.com/')":
 			self.my_web.load(QUrl(
 				"https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.101&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token"))  # если нажали выход загрузить страницу авторизации
+		elif tokken.split("?")[0]=="PyQt5.QtCore.QUrl('https://oauth.vk.com/oauth/authorize":
+			print()  # загрузка страницы ожидания
 		elif tokken.split("wall")[0]!="PyQt5.QtCore.QUrl('https://m.vk.com/":
 			self.my_web.load(QUrl(
 					'http://www.fort-dev.ml/newsify/wait2.php'))  # загрузка страницы ожидания
