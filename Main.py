@@ -54,14 +54,11 @@ class mywindow(QtWidgets.QMainWindow):
 			self.town = requests.get(self.town)
 			self.town = self.town.text  # обработка json кода
 			self.town = json.loads(self.town)
-			# self.town)
 			self.town = self.town.get('response')
 			self.countrihome = self.town.get('country')
 			self.countrihome_id = self.countrihome.get('id')
 			self.countrihome_text = self.countrihome.get('title')
-			# self.town)
 			self.ui.find.setEnabled(True)  # разблокировка кнопки
-			# 'self.acs=', self.acs)
 			self.countri = 'https://api.vk.com/method/database.getCountries?count=234&need_all=1&access_token=' + self.acs + '&v=5.101'
 			self.countri = requests.get(self.countri)
 
@@ -84,19 +81,14 @@ class mywindow(QtWidgets.QMainWindow):
 			self.countri_id[0] = self.countrihome_id
 			self.ui.countri.addItem(self.countrihome_text)
 			self.ui.countri.addItems(self.countri_text)
-			# self.city_text)
 			self.age = self.town.get('bdate')
 			self.age = str(self.age)
 			self.age = self.age.split('.')[-1]
-			# self.age)
 			self.age = int(self.age)
 			self.age = 2019 - self.age
-			# "age:",self.age)
 			self.town = self.town.get('home_town')  # извлечение данных о городе
-			# self.town)
 			self.hometown = str(self.town)
 			self.Countri()
-			# self.town)
 			if self.hometown != None:
 				self.ui.citi.addItem(self.hometown)
 				self.find()
