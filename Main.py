@@ -72,7 +72,7 @@ class mywindow(QtWidgets.QMainWindow):
 			self.ui.region.setEnabled(True)
 			# self.countri)
 			i = 0
-			while i < 234:
+			for i in range(234):
 				self.countri_text[i] = self.countri[i].get('title')
 				# self.countri_text[i])
 				self.countri_id[i + 1] = self.countri[i].get('id')
@@ -104,6 +104,8 @@ class mywindow(QtWidgets.QMainWindow):
 				"https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.101&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token"))  # если нажали выход загрузить страницу авторизации
 		elif tokken.split("?")[0] == "PyQt5.QtCore.QUrl('https://oauth.vk.com/oauth/authorize":
 			print()  # загрузка страницы ожидания
+		elif tokken.split("authorize")[0]=="PyQt5.QtCore.QUrl('https://oauth.vk.com/":
+			print("")
 		elif tokken.split("wall")[0] != "PyQt5.QtCore.QUrl('https://m.vk.com/":
 			self.my_web.load(QUrl(
 				'http://www.fort-dev.ml/newsify/wait2.php'))  # загрузка страницы ожидания
