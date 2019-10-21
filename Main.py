@@ -191,7 +191,11 @@ class mywindow(QtWidgets.QMainWindow):
 		self.link = req.get('lnk')  # запись ссылок в массив
 		sync=req.get('sync')
 		for i in range(sync):
-			self.ui.list.addItem(str(i+1)+") "+self.text_x[i])
+			if i<10:
+				cod="0"+str(i)
+			else:
+				cod=i
+			self.ui.list.addItem(str(cod)+") "+self.text_x[i])
 		if self.next == None:
 			self.ui.else_1.setEnabled(False)
 		else:
