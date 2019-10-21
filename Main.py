@@ -191,7 +191,7 @@ class mywindow(QtWidgets.QMainWindow):
 		sync=req.get('sync')
 		for i in range(sync):
 			if i<10:
-				cod="0"+str(i)
+				cod="0"+str(i+1)
 			else:
 				cod=i
 			self.ui.list.addItem(str(cod)+") "+self.text_x[i])
