@@ -43,7 +43,6 @@ class mywindow(QtWidgets.QMainWindow):
 
 	def token(self):
 		tokken = str(self.my_web.url())  # получение данных из адресной строки
-		print(tokken)
 		if tokken.split("#")[0] == "PyQt5.QtCore.QUrl('https://oauth.vk.com/blank.html":
 			tokken = tokken.split('#')[-1]  # обработка строки для получения токена
 			tokken = tokken.split('&', 1)[0]
