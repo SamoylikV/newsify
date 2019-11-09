@@ -1,0 +1,7 @@
+Origin: Newsify
+Label: Newsify
+Codename: stable
+Architectures: amd64
+Components: main
+Description: 
+SignWith: 061F1C5B7ABF0A7EE6E4B9D255FDDA1EE83B9E1B

@@ -2,6 +2,7 @@
 import json
 import sys
 import requests
+from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import *
 
@@ -101,9 +102,7 @@ class mywindow(QtWidgets.QMainWindow):
 				"https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.103&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token"))  # если нажали выход загрузить страницу авторизации
 		elif tokken == "PyQt5.QtCore.QUrl('https://oauth.vk.com/')":
 			self.my_web.load(QUrl(
-				"https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.103&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token"))  # если нажали выход загрузить страницу авторизации
-#		elif tokken.split("/")[2] != "m.vk.com" and tokken.split("/")[2] != "vk.com" and tokken.split("/")[2] != "www.fort-dev.ml" and tokken.split("/")[2] != "oauth.vk.com":
-#			self.my_web.load(QUrl('http://www.fort-dev.ml/newsify/wait2.php'))  # загрузка страницы ожидания
+				"https://oauth.vk.com/authorize?client_id=7080257&redirect_uri=https://oauth.vk.com/blank.html&display=page&v=5.103&scope=photos,audio,video,pages,wall,docs,groups,offline&revoke=1&response_type=token")) 
 
 	def Countri(self):
 		i = self.ui.countri.currentIndex()

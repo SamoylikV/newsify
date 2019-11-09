@@ -6,7 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
+from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
@@ -162,7 +162,7 @@ class Ui_MainWindow(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         MainWindow.setPalette(palette)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../icons/base/145.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -232,11 +232,11 @@ class Ui_MainWindow(object):
         self.citi.setObjectName("citi")
         self.horizontalLayout.addWidget(self.citi)
         self.find = QtWidgets.QPushButton(self.centralwidget)
-        self.find.setEnabled(True)
+        self.find.setEnabled(False)
         self.find.setMaximumSize(QtCore.QSize(87, 16777215))
         self.find.setStyleSheet("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("lupa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("../icons/base/28.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.find.setIcon(icon1)
         self.find.setIconSize(QtCore.QSize(20, 20))
         self.find.setObjectName("find")
@@ -337,7 +337,7 @@ from PyQt5 import QtWebEngineWidgets, QtWebEngineCore
 
 if __name__ == "__main__":
     import sys
-    app = QtWidgets.QApplication(sys.argv)
+    app = ApplicationContext()
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
