@@ -263,7 +263,7 @@ class Ui_MainWindow(object):
         self.else_1.setObjectName("else_1")
         self.verticalLayout.addWidget(self.else_1)
         self.gridLayout.addLayout(self.verticalLayout, 1, 0, 1, 1)
-#        self.cln = QtWebEngineWidgets.QWebEngineHistory().clear()
+	PyQt5.QtWebEngineWidgets.QWebEngineHistory.clear()
         self.brs = QtWebEngineWidgets.QWebEngineView(self.centralwidget)
         self.brs.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
